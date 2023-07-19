@@ -1,11 +1,13 @@
 package ws
 
 import (
+	"encoding/json"
 	"errors"
-	. "github.com/Roninchen/OKEX_V5SDK_GO/ws/wImpl"
-	. "github.com/Roninchen/OKEX_V5SDK_GO/ws/wInterface"
 	"log"
 	"runtime/debug"
+
+	. "github.com/Roninchen/OKEX_V5SDK_GO/ws/wImpl"
+	. "github.com/Roninchen/OKEX_V5SDK_GO/ws/wInterface"
 )
 
 // 判断返回结果成功失败
@@ -21,12 +23,16 @@ func checkResult(wsReq WSReqData, wsRsps []*Msg) (res bool, err error) {
 
 	res = false
 	if len(wsRsps) == 0 {
+		log.Println("订阅未收到任何返回结果")
+		err = errors.New("订阅未收到任何返回结果")
 		return
 	}
 
 	for _, v := range wsRsps {
 		switch v.Info.(type) {
 		case ErrData:
+			str, _ := json.Marshal(v.Info)
+			err = errors.New("收到错误的订阅返回结果" + string(str))
 			return
 		}
 		if wsReq.GetType() != v.Info.(WSRspData).MsgType() {

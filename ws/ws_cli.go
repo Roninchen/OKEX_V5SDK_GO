@@ -260,7 +260,7 @@ func (a *WsClient) work() {
 		case <-ticker.C: // 保持心跳
 			// go a.Ping(1000)
 			go func() {
-				_, _, err := a.Ping(5000)
+				_, _, err := a.Ping(10000)
 				if err != nil {
 					fmt.Println("心跳检测失败！", err)
 					a.Stop()
