@@ -368,7 +368,7 @@ func (a *WsClient) receive() {
 				log.Println("receive message error!" + err.Error())
 			}
 
-			break
+			continue
 		}
 
 		txtMsg := message
