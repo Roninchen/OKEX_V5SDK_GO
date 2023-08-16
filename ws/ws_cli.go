@@ -303,7 +303,7 @@ func (a *WsClient) work() {
 				log.Printf("发送请求失败: %s\n", err)
 				return
 			}
-			if req != "ping" {
+			if req == "ping" {
 				log.Printf("[发送请求] %v\n", req)
 			}
 		}
