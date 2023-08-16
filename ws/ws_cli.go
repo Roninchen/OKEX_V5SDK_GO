@@ -5,14 +5,15 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	. "github.com/Roninchen/OKEX_V5SDK_GO/config"
-	. "github.com/Roninchen/OKEX_V5SDK_GO/utils"
-	. "github.com/Roninchen/OKEX_V5SDK_GO/ws/wImpl"
 	"log"
 	"regexp"
 	"runtime/debug"
 	"sync"
 	"time"
+
+	. "github.com/Roninchen/OKEX_V5SDK_GO/config"
+	. "github.com/Roninchen/OKEX_V5SDK_GO/utils"
+	. "github.com/Roninchen/OKEX_V5SDK_GO/ws/wImpl"
 
 	"github.com/gorilla/websocket"
 )
@@ -302,7 +303,9 @@ func (a *WsClient) work() {
 				log.Printf("发送请求失败: %s\n", err)
 				return
 			}
-			log.Printf("[发送请求] %v\n", req)
+			if req != "ping" {
+				log.Printf("[发送请求] %v\n", req)
+			}
 		}
 	}
 
