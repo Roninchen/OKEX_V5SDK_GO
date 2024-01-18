@@ -382,7 +382,7 @@ func (a *WsClient) receive() {
 				go func(evt Event) {
 					//log.Println("创建goroutine  evt:", evt)
 
-					for msg := range a.regCh[evt] {
+					for msg := range ch {
 						//log.Println(msg)
 						// msg.Print()
 						switch evt {
